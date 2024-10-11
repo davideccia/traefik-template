@@ -1,0 +1,4 @@
+portainer-data
+traefik-data/configurations/dynamic.yml
+traefik-data/traefik.yml
+traefik-data/acme.json
