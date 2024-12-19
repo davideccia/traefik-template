@@ -17,7 +17,8 @@
 >
 > ## Network
 > Be sure about the `proxy` network exists. If not:
-> ```
+> 
+> ```bash
 > docker network create proxy
 > ```
 > 
