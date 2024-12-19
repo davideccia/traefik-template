@@ -1,4 +1,4 @@
-<img style="background-color: white" width="30%" title="Logo" alt="Logo" src="https://raw.githubusercontent.com/docker-library/docs/a6cc2c5f4bc6658168f2a0abbb0307acaefff80e/traefik/logo.png">
+<img style="border-radius:10%; background-color: white" width="30%" title="Logo" alt="Logo" src="https://raw.githubusercontent.com/docker-library/docs/a6cc2c5f4bc6658168f2a0abbb0307acaefff80e/traefik/logo.png">
 
 # For an easy Docker deploy with reverse proxy
 
