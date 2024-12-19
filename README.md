@@ -15,8 +15,16 @@
 
 > [!IMPORTANT]
 >
+> ## Network
+> Be sure about the `proxy` network exists. If not:
+> ```
+> docker network create proxy
+> ```
+> 
+> ## Labels
 > Check all labels into docker-compose.yml and be sure you have configured it correctly.
 > 
-> The `traefik.http.services.portainer.loadbalancer.server.port=xxxx` label is where Traefik will redirect. 
-> 
 > **DON'T MISS OUT THIS LABEL** 
+> 
+> The `traefik.http.services.portainer.loadbalancer.server.port=xxxx` label is where Traefik will internally redirect. 
+> 
