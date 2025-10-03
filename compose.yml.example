@@ -1,0 +1,55 @@
+services:
+
+  traefik:
+    image: 'traefik:latest'
+    container_name: 'traefik'
+    restart: 'unless-stopped'
+    security_opt:
+      - 'no-new-privileges:true'
+    networks:
+      - 'proxy'
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - './traefik/traefik.yml:/traefik.yaml:ro'
+      - './data/traefik/acme.json:/acme.json'
+      - './data/traefik/config:/config'
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.routers.traefik-secure.entrypoints=websecure
+      - traefik.http.routers.traefik-secure.rule=Host(`traefik.domain.com`)
+      - traefik.http.routers.traefik-secure.service=api@internal
+      - traefik.http.routers.traefik-secure.middlewares=user-auth@file
+
+  portainer:
+    image: 'portainer/portainer-ce:latest'
+    container_name: 'portainer'
+    restart: 'unless-stopped'
+    security_opt:
+      - 'no-new-privileges:true'
+    networks:
+      - 'proxy'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - './data/portainer/data:/data'
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.routers.portainer-secure.entrypoints=websecure
+      - traefik.http.routers.portainer-secure.rule=Host(`portainer.domain.com`)
+      - traefik.http.routers.portainer-secure.service=portainer
+      - traefik.http.services.portainer.loadbalancer.server.port=9000
+      # Enable proxy to multiple ports
+      # - traefik.http.routers.portainer-api-secure.entrypoints=websecure
+      # - traefik.http.routers.portainer-api-secure.rule=Host(`api.portainer.domain.com`)
+      # - traefik.http.routers.portainer-api-secure.service=portainer
+      # - traefik.http.services.portainer-api.loadbalancer.server.port=8000
+
+networks:
+  proxy:
+    external: true

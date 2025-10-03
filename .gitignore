@@ -1,0 +1,7 @@
+/.idea/
+core/apps-data
+
+data/traefik/configurations/dynamic.yml
+data/traefik/traefik.yml
+data/traefik/acme.json
+compose.yml
